@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+}
+
+.displayLiftSection {
+  background-color: grey;
+  width: 20rem;
+  height: auto;
+  padding: 5px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.floors {
+  width: 15rem;
+  height: 15rem;
+  margin: 0 auto;
+  background-color: yellow;
+  border: 2px solid black;
+}
+
+.liftSetup{
+  position: relative;
+}
+
+.lift{
+  width: 14.5rem;
+  height: 14.5rem ;
+  margin: 4px;
+  background-color: brown;
+  position: absolute;
+  cursor: pointer;
+}
+
+
+
+.liftDoors{
+  display: flex;
+  float: left;
+}
+
+.liftLeftDoors{
+}
+
+.liftRightDoors{
+}
+
+
+.liftButtons{
+  display: inline-block;
+  position: relative;
+  left: -2.7rem;
+}
+
+.liftButtonUp{
+  
+}
+
+.liftButtonDown{
+
+}

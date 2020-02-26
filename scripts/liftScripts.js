@@ -2,6 +2,13 @@ let isLiftWorking = false;
 let totalFloor = 2
 let liftPresentFloor = 0;
 
+//prototype used to add element of elemet
+Element.prototype.getElementById = function (id) {
+ return document.getElementById(id);
+}
+
+//Ofset values function
+
 function offset(el) {
  var rect = el.getBoundingClientRect(),
   scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
@@ -9,25 +16,30 @@ function offset(el) {
  return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
 }
 
-var div11 = document.getElementById("floor0");
-var divOffset = offset(div11);
-console.log(divOffset.left, divOffset.top);
+// var div11 = document.getElementById("floor0");
+// var divOffset = offset(div11);
+// console.log(divOffset.left, divOffset.top);
 
 
 
 // let floor0 = document.getElementById("floor0").getBoundingClientRect();
-
 // console.log(document.getElementById("floor0").offsetTop); 
 
+let positionOfLiftTop = [];
 
-let positionOfLift = offset(document.getElementById("floor0"));
-let positionOfLiftTop = positionOfLift.top;
-let positionOfLiftLeft = positionOfLift.left;
+let adjustTop = offset(document.getElementById('floor0')).top;
+for (let i = 0; i < noOfLifts; i++) {
+ let x = document.getElementById('liftSetup' + i);
+ let positionOfLift = offset(x);
 
-let setLiftPostition = document.getElementById("lift0");
-lift0.style.top = positionOfLiftTop + 'px';
-lift0.style.left = positionOfLiftLeft + 'px';
+ console.log(x, positionOfLift, i);
+ positionOfLiftTop[i] = positionOfLift.top + adjustTop - 45;
+ let positionOfLiftLeft = positionOfLift.left + 40;
 
+ let lift = document.getElementById('lift' + i);
+ lift.style.top = positionOfLiftTop[i] + 'px';
+ lift.style.left = positionOfLiftLeft + 'px';
+}
 let positionOfLiftFloor = 0;
 
 function liftWorkingStatus() {
@@ -41,15 +53,18 @@ function moveLiftUp(floorNumber, liftNumber) {
  let left = floorA.left;
  console.log(top, left);
 
+ liftNumber = liftNumber.match(/\d/g);
+ liftNumber = liftNumber.join("");
+
 
  if (liftPresentFloor != floorNumber) {
   let id = setInterval(frameDown, 10);
   function frameDown() {
-   if (positionOfLiftTop >= top) {
+   if (positionOfLiftTop[liftNumber] >= top) {
     clearInterval(id);
    } else {
-    positionOfLiftTop++;
-    lift1.style.top = positionOfLiftTop + 'px';
+    positionOfLiftTop[liftNumber]++;
+    lift1.style.top = positionOfLiftTop[liftNumber] + 'px';
    }
   }
 
@@ -57,11 +72,11 @@ function moveLiftUp(floorNumber, liftNumber) {
 
  let id = setInterval(frame, 10);
  function frame() {
-  if (positionOfLiftTop <= top) {
+  if (positionOfLiftTop[liftNumber] <= top) {
    clearInterval(id);
   } else {
-   positionOfLiftTop--;
-   lift1.style.top = positionOfLiftTop + 'px';
+   positionOfLiftTop[liftNumber]--;
+   lift1.style.top = positionOfLiftTop[liftNumber] + 'px';
   }
  }
  liftPresentFloor = floorNumber;
@@ -77,14 +92,17 @@ function moveLiftDown(floorNumber, liftNumber) {
  console.log(top);
  console.log(left);
 
+ liftNumber = liftNumber.match(/\d/g);
+ liftNumber = liftNumber.join("");
+
  if (liftPresentFloor != floorNumber) {
   let id = setInterval(frameUp, 10);
   function frameUp() {
-   if (positionOfLiftTop <= top) {
+   if (positionOfLiftTop[liftNumber] <= top) {
     clearInterval(id);
    } else {
-    positionOfLiftTop--;
-    lift1.style.top = positionOfLiftTop + 'px';
+    positionOfLiftTop[liftNumber]--;
+    lift1.style.top = positionOfLiftTop[liftNumber] + 'px';
    }
   }
 
@@ -93,11 +111,11 @@ function moveLiftDown(floorNumber, liftNumber) {
 
  let id = setInterval(frame, 10);
  function frame() {
-  if (positionOfLiftTop >= top) {
+  if (positionOfLiftTop[liftNumber] >= top) {
    clearInterval(id);
   } else {
-   positionOfLiftTop++;
-   lift1.style.top = positionOfLiftTop + 'px';
+   positionOfLiftTop[liftNumber]++;
+   lift1.style.top = positionOfLiftTop[liftNumber] + 'px';
   }
  }
  liftPresentFloor = floorNumber;
